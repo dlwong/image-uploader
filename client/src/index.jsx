@@ -7,8 +7,8 @@ import Gallery from './Gallery.jsx';
 const routing = (
   <Router>
     <div>
-      <Route exact path="/" component={Gallery} />
-      <Route path="/upload" component={Upload} />
+      <Route exact path="/" component={ Gallery } />
+      <Route path="/upload" component={ Upload } />
     </div>
   </Router>
 )

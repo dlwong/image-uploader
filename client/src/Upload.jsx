@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
+import { Link, withRouter } from "react-router-dom";
 
 class Upload extends Component {
   constructor(props){
@@ -35,19 +36,20 @@ class Upload extends Component {
 
     axios.post('http://localhost:3000/upload', data)
           .then (res => {
-             console.log(res)
+             console.log(res);
+             this.props.history.push("/"); 
             })
           .catch((error) => {
             console.log(error);
           });
-          
+
   }
 
   render () {
     return ( 
       <div>
-        <input type='file' onChange = {(e) => this.fileUpload(e)}/>
-        <button type="button" onClick={(e) => this.uploadHandler(e)}>Upload</button> 
+        <input type='file' onChange = {e => this.fileUpload(e)}/>
+        <button type="button" onClick={e => this.uploadHandler(e)}>Upload</button> 
         <div className="imgPreview">
         <img src={this.state.imagePreview} />
         </div>

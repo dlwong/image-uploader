@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import imageLoader from './images.jsx';
 
 class Gallery extends Component {
@@ -9,9 +10,11 @@ class Gallery extends Component {
     }
   }
 
-  componentDidMount() {
-    const images = imageLoader(require.context('../../uploads', false, /\.(png|jpe?g)$/));
-    this.setState({images})
+  componentDidUpdate() {
+    if (nextProps.location.pathname !== this.props.location.pathname){
+      const images = imageLoader(require.context('../../uploads', false, /\.(png|jpe?g)$/));
+      this.setState({images})
+    }
   }
   
   render () {
@@ -20,6 +23,7 @@ class Gallery extends Component {
     })
     return ( 
       <div>
+        <Link to="/upload">Upload</Link>
         <ul>{imgNodes}</ul>
       </div>
     )
