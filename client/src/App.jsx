@@ -31,7 +31,9 @@ class App extends Component {
     return ( 
       <div>
         <input type='file' onChange = {(e) => this.fileUpload(e)}/>
+        <div className="imgPreview">
         <img src={this.state.imagePreview} />
+        </div>
       </div>
     )
 
