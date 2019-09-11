@@ -10,6 +10,11 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/../client/public')));
 
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+
 var storage = multer.diskStorage({
       destination: function (req, file, cb) {
       cb(null, 'uploads')
@@ -35,8 +40,4 @@ app.post('/upload',function(req, res) {
 
 });
 
-app.listen(3000, function() {
-
-    console.log('App running on port 3000');
-
-});
+app.listen(port);

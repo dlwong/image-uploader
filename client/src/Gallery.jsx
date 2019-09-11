@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import imageLoader from './images.jsx';
 
 class Gallery extends Component {
   constructor(props){
@@ -23,10 +22,22 @@ class Gallery extends Component {
     clearInterval(this.state.interval);
   }
 
+  importAll() {
+    const images = [];
+
+    let r = require.context('../../uploads', false, /\.(png|jpe?g|PNG|JPG)$/);
+
+    r.keys().forEach(item => { 
+                        images.push(r(item)); 
+                        this.setState({images});
+                      });
+  }
+
   handleImages() {
-    let images = imageLoader(require.context('../../uploads', false, /\.(png|jpe?g|PNG|JPG)$/));
-    this.setState({images})
+    this.importAll();
+
     console.log(this.state.images.length)
+
     if (this.state.number === this.state.images.length-1){
       this.setState({number:0})
     }else {
