@@ -18,7 +18,7 @@ class Gallery extends Component {
   }
 
   componentDidMount() {
-    const interval = setInterval(this.handleImages, 1000);
+    const interval = setInterval(this.handleImages, 5000);
     this.setState({interval});
   }
 
