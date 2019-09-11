@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Upload from './Upload.jsx';
+import axios from 'axios';
 
 class Gallery extends Component {
   constructor(props){
@@ -8,13 +10,15 @@ class Gallery extends Component {
       images: [],
       interval: null,
       number: 0,
-      image: null
+      image: null, 
+      bool: false
     }
     this.handleImages = this.handleImages.bind(this);
+    this.importAll = this.importAll.bind(this);
   }
 
   componentDidMount() {
-    const interval = setInterval(this.handleImages, 3000);
+    const interval = setInterval(this.handleImages, 1000);
     this.setState({interval});
   }
 
@@ -25,34 +29,48 @@ class Gallery extends Component {
   importAll() {
     const images = [];
 
-    let r = require.context('../../uploads', false, /\.(png|jpe?g|PNG|JPG)$/);
+    //requires all the images from the uploads directory
+    // let context = require.context('../../uploads', false, /\.(png|jpe?g|PNG|JPE?G)$/);
 
-    r.keys().forEach(item => { 
-                        images.push(r(item)); 
-                        this.setState({images});
-                      });
+    // context.keys().forEach(item => { 
+    //                     images.push(context(item)); 
+    //                 });
+
+    axios.get('/update')
+    .then (res => {
+      //  console.log(res.data);
+      this.setState({images:res.data});
+      })
+    .catch((error) => {
+      console.log(error);
+    });
+                    
+
   }
 
   handleImages() {
     this.importAll();
 
-    console.log(this.state.images.length)
+    console.log(this.state.number)
 
-    if (this.state.number === this.state.images.length-1){
-      this.setState({number:0})
-    }else {
+    if (this.state.number < this.state.images.length-1){
       this.setState({number:this.state.number+1})
+    }else {
+      this.setState({number:0})
     }
 
   }
   
   render () {
-    let imgNodes = this.state.images.map( image => {
+    let imgNodes = this.state.images.map(image => {
+      // console.log(String(image))
       return <img src = {image} />
     })
+    // console.log(imgNodes)
     return ( 
       <div>
         <Link to="/upload">Upload</Link>
+        {/* <ul><img src = {'../../uploads/1568239606373-IMG_0014.PNG'} /></ul> */}
         <ul>{imgNodes[this.state.number]}</ul>
       </div>
     )

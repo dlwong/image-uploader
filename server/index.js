@@ -4,11 +4,16 @@ const path = require('path');
 const morgan = require('morgan');
 const multer = require('multer');
 const cors = require('cors');
+const testFolder = './uploads';
+const fs = require('fs');
 
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/../client/public')));
+// app.use(express.static(path.join(__dirname, '/../uploads')));
+app.use('/uploads', express.static('uploads'))
+
 
 let port = process.env.PORT;
 if (port == null || port == "") {
@@ -38,6 +43,17 @@ app.post('/upload',function(req, res) {
 
     })
 
+});
+
+app.get('/update',function(req, res) {
+    const tempArr = [];
+
+    fs.readdir(testFolder, (err, files) => {
+      files.forEach(file => {
+        tempArr.push(`../../uploads/${file}`);
+      });
+      res.send(tempArr)
+    })
 });
 
 app.listen(port);

@@ -36,6 +36,7 @@ class Upload extends Component {
     axios.post('http://localhost:3000/upload', data)
           .then (res => {
              console.log(res);
+            //  this.props.importAll();
              this.props.history.push("/"); 
             })
           .catch((error) => {
