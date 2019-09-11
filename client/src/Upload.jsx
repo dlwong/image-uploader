@@ -33,10 +33,9 @@ class Upload extends Component {
     const data = new FormData();
     data.append('file', this.state.file)
 
-    axios.post('http://localhost:3000/upload', data)
+    axios.post('/upload', data)
           .then (res => {
              console.log(res);
-            //  this.props.importAll();
              this.props.history.push("/"); 
             })
           .catch((error) => {

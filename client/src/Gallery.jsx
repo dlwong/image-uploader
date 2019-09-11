@@ -38,7 +38,6 @@ class Gallery extends Component {
 
     axios.get('/update')
     .then (res => {
-      //  console.log(res.data);
       this.setState({images:res.data});
       })
     .catch((error) => {
@@ -51,8 +50,6 @@ class Gallery extends Component {
   handleImages() {
     this.importAll();
 
-    console.log(this.state.number)
-
     if (this.state.number < this.state.images.length-1){
       this.setState({number:this.state.number+1})
     }else {
@@ -63,14 +60,11 @@ class Gallery extends Component {
   
   render () {
     let imgNodes = this.state.images.map(image => {
-      // console.log(String(image))
       return <img src = {image} />
     })
-    // console.log(imgNodes)
     return ( 
       <div>
         <Link to="/upload">Upload</Link>
-        {/* <ul><img src = {'../../uploads/1568239606373-IMG_0014.PNG'} /></ul> */}
         <ul>{imgNodes[this.state.number]}</ul>
       </div>
     )
