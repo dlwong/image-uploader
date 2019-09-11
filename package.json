@@ -6,7 +6,8 @@
   "scripts": {
     "react-dev": "webpack -d --watch",
     "eslint": "eslint --ext .js --ext .jsx . --fix",
-    "build": "npx webpack --config webpack.config.js"
+    "build": "npx webpack --config webpack.config.js",
+    "start": "node server/index.js"
   },
   "heroku-run-build-script": true,
   "keywords": [],
