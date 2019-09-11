@@ -1,11 +1,11 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 const path = require('path');
 const morgan = require('morgan');
-var multer = require('multer')
-var cors = require('cors');
+const multer = require('multer');
+const cors = require('cors');
 
-app.use(cors())
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/../client/public')));
@@ -17,9 +17,9 @@ var storage = multer.diskStorage({
     filename: function (req, file, cb) {
       cb(null, Date.now() + '-' +file.originalname )
     }
-})
+});
 
-var upload = multer({ storage: storage }).single('file')
+var upload = multer({ storage: storage }).single('file');
 
 app.post('/upload',function(req, res) {
      

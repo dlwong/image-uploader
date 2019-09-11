@@ -7,7 +7,7 @@ class Upload extends Component {
     super(props);
     this.state = {
       file: null,
-      imagePreview:''
+      imagePreview: ''
     }
     this.fileUpload = this.fileUpload.bind(this);
     this.uploadHandler = this.uploadHandler.bind(this);
@@ -25,7 +25,6 @@ class Upload extends Component {
         imagePreview: reader.result
       });
     }
-
     reader.readAsDataURL(file)
   }
 
@@ -42,7 +41,6 @@ class Upload extends Component {
           .catch((error) => {
             console.log(error);
           });
-
   }
 
   render () {
@@ -51,11 +49,12 @@ class Upload extends Component {
         <input type='file' onChange = {e => this.fileUpload(e)}/>
         <button type="button" onClick={e => this.uploadHandler(e)}>Upload</button> 
         <div className="imgPreview">
-        <img src={this.state.imagePreview} />
+          { this.state.file &&
+            <img src={this.state.imagePreview} />
+          }
         </div>
       </div>
     )
-
   }
 }
 
