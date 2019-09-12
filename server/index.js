@@ -48,10 +48,13 @@ app.get('/update',function(req, res) {
     const tempArr = [];
 
     fs.readdir(testFolder, (err, files) => {
-      files.forEach(file => {
-        tempArr.push(`../../uploads/${file}`);
-      });
-      res.send(tempArr)
+      if (err) res.status(404).end();
+      if (files.length>0){
+        files.forEach(file => {
+          tempArr.push(`../../uploads/${file}`);
+        });
+        res.status(200).send(tempArr)
+      }
     })
 });
 
