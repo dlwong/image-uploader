@@ -9,32 +9,24 @@ class Gallery extends Component {
     this.state = {
       images: [],
       interval: null,
-      number: 0,
-      image: null, 
-      bool: false
+      number: 0
     }
     this.handleImages = this.handleImages.bind(this);
     this.importAll = this.importAll.bind(this);
   }
 
+  //setting the 5 second interval to run
   componentDidMount() {
     const interval = setInterval(this.handleImages, 5000);
     this.setState({interval});
   }
-
+  //clear time interval to prevent memory leakage
   componentWillUnmount() {
     clearInterval(this.state.interval);
   }
-
+  //grab all images from server
   importAll() {
     const images = [];
-
-    //requires all the images from the uploads directory
-    // let context = require.context('../../uploads', false, /\.(png|jpe?g|PNG|JPE?G)$/);
-
-    // context.keys().forEach(item => { 
-    //                     images.push(context(item)); 
-    //                 });
 
     axios.get('/update')
     .then (res => {
@@ -49,7 +41,7 @@ class Gallery extends Component {
 
   handleImages() {
     this.importAll();
-
+    //cycle through images counter
     if (this.state.number < this.state.images.length-1){
       this.setState({number:this.state.number+1})
     }else {
@@ -59,6 +51,7 @@ class Gallery extends Component {
   }
   
   render () {
+    //create image tag
     let imgNodes = this.state.images.map(image => {
       return <img src = {image} />
     })

@@ -18,7 +18,7 @@ class Upload extends Component {
 
     let reader = new FileReader();
     let file = e.target.files[0];
-
+    //when reading is done processing then set image state
     reader.onloadend = () => {
       this.setState({
         file: file,
@@ -30,12 +30,14 @@ class Upload extends Component {
 
   uploadHandler(e) {
     e.preventDefault;
+    //send image to server
     const data = new FormData();
     data.append('file', this.state.file)
-
+    
     axios.post('/upload', data)
           .then (res => {
              console.log(res);
+             //redirect back to homepage
              this.props.history.push("/"); 
             })
           .catch((error) => {
