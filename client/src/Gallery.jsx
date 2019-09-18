@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Upload from './Upload.jsx';
 import axios from 'axios';
@@ -8,7 +8,6 @@ class Gallery extends Component {
     super(props);
     this.state = {
       images: [],
-      interval: null,
       number: 0
     }
     this.handleImages = this.handleImages.bind(this);
@@ -17,13 +16,14 @@ class Gallery extends Component {
 
   //setting the 5 second interval to run
   componentDidMount() {
-    const interval = setInterval(this.handleImages, 5000);
-    this.setState({interval});
+    this.interval = setInterval(() => this.handleImages(), 5000);
   }
+
   //clear time interval to prevent memory leakage
   componentWillUnmount() {
-    clearInterval(this.state.interval);
+    clearInterval(this.interval);
   }
+
   //grab all images from server
   importAll() {
     const images = [];
@@ -36,7 +36,6 @@ class Gallery extends Component {
       console.log(error);
     });
                     
-
   }
 
   handleImages() {
@@ -47,19 +46,18 @@ class Gallery extends Component {
     }else {
       this.setState({number:0})
     }
-
   }
   
   render () {
     //create image tag
     let imgNodes = this.state.images.map(image => {
-      return <img src = {image} />
+      return <li><img src = {image} /></li>
     })
     return ( 
-      <div>
+      <Fragment>
         <Link to="/upload">Upload</Link>
         <ul>{imgNodes[this.state.number]}</ul>
-      </div>
+      </Fragment>
     )
 
   }
