@@ -1,4 +1,26 @@
+# Photo Carousel with Image Uploader
+
+
+## Table of Contents
+
+1. [Stack](#stack)
+2. [Demo](#demo)
+3. [Getting Started](#getting-started)
+
+## Stack
+
+<b>Front-end:</b> JavaScript, React, React Router
+<br />
+<b>Back-end:</b> Node.js, Express, Multer
+
+## Demo
 https://thawing-river-25986.herokuapp.com/
 
-- For the front end, I built using React. For redirecting the different URL and the component, I used react-router
-- Backend, I used Multer to upload my files to the server and served the files from the uploaded file directory. 
+## Getting Started
+
+From within the root directory:
+
+```sh
+npm install 
+npm run start
+```
