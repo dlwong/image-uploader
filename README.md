@@ -1,5 +1,5 @@
 # Photo Carousel with Image Uploader
-
+> Single file upload
 
 ## Table of Contents
 
